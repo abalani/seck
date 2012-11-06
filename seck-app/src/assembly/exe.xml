@@ -13,6 +13,8 @@
       <includes>
         <include>gnu.getopt:java-getopt</include>
         <include>com.pcwerk:seck-lib</include>
+        <include>org.apache.tika:tika-core</include>
+        <include>org.apache.tika:tika-parsers</include>
       </includes>
     </dependencySet>
   </dependencySets>
