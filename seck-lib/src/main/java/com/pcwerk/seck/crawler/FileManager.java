@@ -8,9 +8,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -60,7 +57,7 @@ public class FileManager {
 			Scanner scanner = new Scanner(fin);
 			
 			while (scanner.hasNext()) {
-				hashes.add(Integer.parseInt(scanner.nextLine()));
+				hashes.add(Integer.parseInt(scanner.next()));
 			}
 			
 			scanner.close();
@@ -81,7 +78,7 @@ public class FileManager {
 			PrintWriter out = new PrintWriter(fout);
 			out.println(websiteName);
 			
-			for(int i = 0; i < array.length - 2; i++){
+			for(int i = 0; i < array.length - 1; i++){
 				out.println(array[i]);
 			}
 			
@@ -100,15 +97,15 @@ public class FileManager {
 		System.out.println("Place to write to: " + fileName);
 		try {
 
-			ArrayList<String> oldList = readFile(fileName);
+			ArrayList<Integer> oldList = readMasterFile(fileName);
 			System.out.println("New Update to MasterFile:");
-			for(String line : oldList){
-				System.out.println(line);
+			for(Integer line : oldList){
+				System.out.println("This: = " + line);
 			}
 			File fout = new File(fileName);
 			PrintWriter out = new PrintWriter(fout);
-			oldList.add(hashCode + "");
-			for(String line : oldList){
+			oldList.add(hashCode);
+			for(Integer line : oldList){
 				out.println(line);
 			}
 
@@ -220,17 +217,15 @@ public class FileManager {
 //			e.printStackTrace();
 //		}
 		
-		for(Integer fileName : urlFileNames){
-			try {
-				ArrayList<String> data = readFile(directory.concat(fileName + ".txt"));
-				Thread.sleep(10);
-				//System.out.println(data.get(0));
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-
-			}
-		}
+//		for(Integer fileName : urlFileNames){
+//			try {
+//				ArrayList<String> data = readFile(directory.concat(fileName + ".txt"));
+//				Thread.sleep(10);
+//				System.out.println(data.get(0));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 //		for(Integer fileName : urlFileNames){
 //			try {
@@ -293,12 +288,7 @@ public class FileManager {
 		}
 		//queueMaster.remove();
 		System.out.println("Size of master is = " + queueMaster.size());
-		for(Queue<String> n : queueMaster){
-			//System.out.println("Queue begins here");
-			for(String line : n){
-				//System.out.println(line);
-			}
-		}
+
 	}
 	
 	public static synchronized Queue<String> getQueue(){
@@ -344,7 +334,7 @@ public class FileManager {
 		    FileManager.updateQueueMaster(linksSet, tc);
 		}
 		else{
-			//FileManager.saveHash(root.hashCode());
+			FileManager.saveHash(root.hashCode());
 			HashSet<String> linksSet = new HashSet<String>();
 			linksSet.add(root);
 			FileManager.updateQueueMaster(linksSet, tc);

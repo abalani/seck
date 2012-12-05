@@ -1,6 +1,5 @@
 package com.pcwerk.seck.crawler;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -63,7 +62,7 @@ public class SlaveCrawler extends Crawler{
 			if(!crawled){ 
 				synchronized (this) {
 				System.out.println(id + " " + root);
-				FileManager.saveHash(root.hashCode());
+				//FileManager.saveHash(root.hashCode()); //Remove this line for Recrawler
 				FileManager.populate(root, tc);
 				}
 
